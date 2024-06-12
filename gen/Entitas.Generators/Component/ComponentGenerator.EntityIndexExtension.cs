@@ -24,7 +24,7 @@ namespace Entitas.Generators
                 GeneratedFileHeader(GeneratorSource(nameof(EntityIndexExtension))) +
                 NamespaceDeclaration(method.ContextNamespace,
                     $$"""
-                    public static class {{method.ContextName}}EntityIndexExtension
+                    public static partial class {{method.ContextName}}EntityIndexExtension
                     {{{EntityIndexNames(componentMemberPairs)}}
                         public static {{method.ContextName}} AddAllEntityIndexes(this {{method.ContextName}} context)
                         {{{AddEntityIndexes(componentMemberPairs, method)}}
@@ -73,7 +73,7 @@ namespace Entitas.Generators
                         .GroupBy(pair => pair.Component.Namespace)
                         .Select(group => NamespaceDeclaration(group.Key,
                             $$"""
-                        public static class EntityIndexExtension
+                        public static partial class {{method.ContextName}}EntityIndexExtension
                         {
                         {{string.Join("\n\n", group.Select(pair => pair.Member.EntityIndexType == 0
                             ? $$"""
